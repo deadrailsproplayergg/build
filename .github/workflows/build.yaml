@@ -1,0 +1,20 @@
+name: Build InfernoFSPatcher
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Build
+        run: |
+          git clone https://git.chefkiss.dev/AppleHax/InfernoFSPatcher
+          cd InfernoFSPatcher
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+          file build/inferno_fs_patcher
+      
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: inferno_fs_patcher
+          path: InfernoFSPatcher/build/inferno_fs_patcher
